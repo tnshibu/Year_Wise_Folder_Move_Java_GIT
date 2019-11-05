@@ -30,14 +30,15 @@ public class Year_Wise_Folder_Move {
 		sourceFileList = getFileListFromFolder(userCurrentDir);
 		Pattern pattern = Pattern.compile("^(.*)(\\d{4})(.*)");
 		for(int i=0;i<sourceFileList.size();i++) {
-		  try {
-			  String sourceFileFullPath = sourceFileList.get(i);
-			  File sourceFile = new File(sourceFileFullPath);
-			  File parentFolder = sourceFile.getParentFile();
-			  String parentFolderName = parentFolder.getName();
-			  String name = sourceFile.getName();
+			try {
+				String sourceFileFullPath = sourceFileList.get(i);
+				File sourceFile = new File(sourceFileFullPath);
+				File parentFolder = sourceFile.getParentFile();
+				String parentFolderName = parentFolder.getName();
+				String name = sourceFile.getName();
+				String tmpName = name.replaceAll("1080","");
 
-				Matcher matcher = pattern.matcher(name);
+				Matcher matcher = pattern.matcher(tmpName);
 				if (matcher.find()) {
 					int year = Integer.parseInt(matcher.group(2));
 					if(parentFolderName.contains(year+"")) {
@@ -53,7 +54,7 @@ public class Year_Wise_Folder_Move {
 						sourceFile.renameTo(destFile);
 					}
 				}
-			  System.out.println("--------------------------------------------------");
+				System.out.println("--------------------------------------------------");
 		  } catch (Exception e) {
 			  e.printStackTrace();
 		  }
